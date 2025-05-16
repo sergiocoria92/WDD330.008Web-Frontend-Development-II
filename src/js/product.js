@@ -1,7 +1,6 @@
 import { setLocalStorage } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 
-
 const dataSource = new ProductData("tents");
 
 // The Issue is with this function
@@ -41,3 +40,24 @@ async function addToCartHandler(e) {
 document
   .getElementById("addToCart")
   .addEventListener("click", addToCartHandler);
+
+
+
+//discount  (SC)
+  if (product.FinalPrice < product.SuggestedRetailPrice) {
+    const discount = Math.round(
+      ((product.SuggestedRetailPrice - product.FinalPrice) / 
+       product.SuggestedRetailPrice) * 100
+    );
+    
+    document.getElementById("originalPrice").textContent = 
+      product.SuggestedRetailPrice.toFixed(2);
+    document.getElementById("finalPrice").textContent = 
+      product.FinalPrice.toFixed(2);
+    document.querySelector(".discount-badge").textContent = `-${discount}%`;
+  } else {
+
+    document.querySelector(".product-card__price--original").style.display = "none";
+    document.querySelector(".discount-badge").style.display = "none";
+  }
+//end discount (SC)
